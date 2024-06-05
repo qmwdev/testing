@@ -5,11 +5,6 @@ ver_type, ver = 'debug', '0.1'
 local api = {}
 
 
-flower_zones = game.Workspace.FlowerZones
-flower_decos = game.Workspace.FieldDecos
-collectibles = game.Workspace.Collectibles
-
-
 function api:notify(Title, Text, Icon, Duration)
     game:GetService("StarterGui"):SetCore("SendNotification",{
         Title = Title, -- Required
