@@ -43,7 +43,7 @@ local collect_collectibles = function(variable)
     
 end
 
-collect_collectibles(api.collectibles)
+--collect_collectibles(api.collectibles)
 --fields(api.flower_zones)
 
 
