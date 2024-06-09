@@ -19,16 +19,13 @@ local Monsters = game.Workspace.Monsters
 local MonsterSpawners = game.Workspace.MonsterSpawners
 local NPCs = game.Workspace.NPCs
 local shops = game.Workspace.Shops
+local Toys = game.Workspace.Toys
 --local Sprouts = game.Workspace.Sprouts
 -----------------------------------------------------------------------------------------------------------------------------------------------
 
 --UI
 
 -----------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
-
 
 -- functions
 
@@ -50,8 +47,10 @@ local fields = function(variable)
     for i, v in pairs(variable:GetChildren()) do
         if v:IsA("BasePart") then
             --print(v.Name)
-            table.insert(all_fields, v.Name)
-            table.insert(all_fields_coordinates, v.Position)
+            if not string.find(v.Name, 'Brick') and not string.find(v.Name, 'Hub') and not string.find(v.Name, 'Ant') then
+                table.insert(all_fields, v.Name)
+                table.insert(all_fields_coordinates, v.Position)
+            end
         end
     end
 end
@@ -62,7 +61,7 @@ local HiddenStickersfunc = function(variable)
     for i, v in pairs(variable:GetChildren()) do
         if v:IsA("BasePart") then
             print(v.Position)
-            table.insert(HiddenStickers_array, v.Name)
+            table.insert(HiddenStickers_array, v.Name .. tostring(i))
         end
     end
 end
@@ -72,7 +71,7 @@ local MonsterSpawners_array = {}
 local MonsterSpawnersfunc = function(variable)
     for i, v in pairs(variable:GetChildren()) do
         if v:IsA("BasePart") then
-            print(v.Position)
+            print(v.Territory.Value)
             table.insert(MonsterSpawners_array, v.Name)
         end
     end
@@ -120,7 +119,7 @@ end
 --fields(api.flower_zones)
 
 
-
+notify('QMW | Bee Swarm Simulator', 'Succesfully Loaded Functions!')
 
 
 
@@ -165,6 +164,17 @@ section:Button{
         collect_collectibles(collectibles)
     end
 }
+
+section:Button{
+    Name = 'Get All Daily Stickers',
+    Callback = function()
+        for i = 1 ,100 do
+            game:GetService("ReplicatedStorage").Events.HiddenStickerEvent:FireServer(i)
+            print(i)
+        end
+    end
+}
+
 
 local seperator = section:Separator("Separator")
 
@@ -228,6 +238,29 @@ teleports_section:Dropdown{
 
 
 
+local Misc = main:Tab("Misc")
+
+local Misc_section = Misc:Section{
+    Name = 'World Settings',
+    Side = 'Left'
+}
+
+Misc_section:Slider{
+    Name = 'WalkSpeed',
+    Text = '[value]/1',
+    Default = 50,
+    Min = 50,
+    Max = 200,
+    Flag = 'WalkSpeed Flag 1',
+    Callback = function(value)
+        --game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+    end
+}
+
+
+
+
+
 local Settings = main:Tab("Settings")
 
 local Settings_world = Settings:Section{
@@ -246,15 +279,12 @@ Settings_world:Button{
         end
     end
 }
-auto_dig = false
+
 Settings_world:Toggle{
     Name = 'Auto Dig',
     Flag = 'Auto Dig Flag',
     Callback = function(bool)
-        repeat
-            task.wait(0.1)
-            print('hihihihihihihihihihihi')
-        until bool == false
+        print('Fuck roblox loops')
     end
 }
 
@@ -265,6 +295,8 @@ local Timers_section = Timers:section{
     Name = 'Timers for Mobs',
     Side = 'Left'
 }
+
+
 
 
 local configs = main:Tab("Configuration")
@@ -526,3 +558,6 @@ keybindsection:Keybind{
 
 --library:Close()
 --library:Unload()
+
+
+notify('QMW | Bee Swarm Simulator', 'Succesfully Loaded UI!')
