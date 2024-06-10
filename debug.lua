@@ -168,7 +168,7 @@ section:Button{
 section:Button{
     Name = 'Get All Daily Stickers',
     Callback = function()
-        for i = 1 ,100 do
+        for i = 1 ,200 do
             game:GetService("ReplicatedStorage").Events.HiddenStickerEvent:FireServer(i)
             print(i)
         end
